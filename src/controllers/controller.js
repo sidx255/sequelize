@@ -1,8 +1,8 @@
 const taskService = require("../services/todo");
 
-const getTasks = (req, res) => {
+const getTasks = async (req, res) => {
   console.log("/tasks controller is called");
-  res.send(taskService.getTasks());
+  res.send(await taskService.getTasks());
 };
 
 const getTask = (req, res) => {

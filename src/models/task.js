@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Task.init({
     isComplete: DataTypes.BOOLEAN,
-    name: DataTypes.STRING
+    title: DataTypes.STRING
   }, {
     sequelize,
     modelName: "Task",

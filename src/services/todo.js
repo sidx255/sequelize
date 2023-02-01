@@ -1,18 +1,19 @@
 const { findIndexById } = require("../utils/indexUtil");
 const db = require("../models");
 let task = {};
-const getTasks = () => {
-  console.log("GET /tasks/ service is called");
-  return global.db;
+const getTasks = async () => {
+  const result = await db.task.findAll();
+  return result;
 };
 
 const getTask = (id) => {
   console.log("GET /tasks/:id service is called");
   const requestTaskId = findIndexById(id);
-  return global.db[requestTaskId];
+  const result = db.Task.findAll({ where: { id: requestTaskId }});
+  return result[0];
 };
 
-const postTask = (name) => {
+const postTask = async (name) => {
   console.log("POST /tasks/ service is called");
   task = {
     id: global.id,
@@ -20,9 +21,9 @@ const postTask = (name) => {
     name: name
   };
   global.id += 1;
-  global.db.push(task);
-  //db.Task.create(task);
-  return task;
+  let result = await db.Task.create(task);
+  return result;
+  //res.send(result);
 };
 
 const completeTask = (id) => {
