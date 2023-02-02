@@ -6,10 +6,10 @@ const getTasks = async () => {
   return result;
 };
 
-const getTask = (id) => {
+const getTask = async (id) => {
   console.log("GET /tasks/:id service is called");
   const requestTaskId = findIndexById(id);
-  const result = db.Task.findAll({ where: { id: requestTaskId }});
+  const result = await db.Task.findAll({ where: { id: requestTaskId }});
   return result[0];
 };
 
@@ -18,7 +18,7 @@ const postTask = async (name) => {
   task = {
     id: global.id,
     isComplete: false,
-    name: name
+    title: name
   };
   global.id += 1;
   let result = await db.Task.create(task);
@@ -26,14 +26,14 @@ const postTask = async (name) => {
   //res.send(result);
 };
 
-const completeTask = (id) => {
+const completeTask = async (id) => {
   console.log("PATCH /tasks/:id service is called");
   const requestTaskId = findIndexById(id);
   global.db[requestTaskId].isComplete = true;
-  return global.db[requestTaskId];
+  return await global.db[requestTaskId];
 };
 
-const deleteTasks = (isComplete) => {
+const deleteTasks = async (isComplete) => {
   console.log("DELETE /tasks/ service is called");
   const initialLength = global.db.length;
   isComplete === true ? global.db.splice(0, global.db.length, ...global.db.filter((task) => 

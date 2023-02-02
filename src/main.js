@@ -3,7 +3,7 @@ const taskRouter = require("./routers/router");
 
 const app = express();
 
-const PORT = 4000;
+const PORT = 3000;
 global.db = [];
 global.id = 0;
 

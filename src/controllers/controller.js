@@ -1,4 +1,7 @@
 const taskService = require("../services/todo");
+// const joi = require("joi");
+// const HTTPError = require("../utils/HTTPError");
+
 
 const getTasks = async (req, res) => {
   console.log("/tasks controller is called");
@@ -10,9 +13,26 @@ const getTask = (req, res) => {
   res.send(taskService.getTask(req.params.id));
 };
 
-const postTask = (req, res) => {
+const postTask = async (req, res) => {
+  // try {
+  //   const schema = joi.object({
+  //     title: joi.string().alphanum().min(1).max(1000).required()
+  //   });
+    
+  //   const { error, value } = schema.validate(req.body);
+  //   if (error) {
+  //     throw new HTTPError(error.message, 400);
+  //   }
+
+  const task = await taskService.postTask(req.body.title);
+  res.status(201).send(task);
   console.log("POST /tasks/ controller is called");
-  res.send(taskService.postTask(req.body.name));
+  // } catch (error) {
+  //   if (error instanceof HTTPError) {
+  //     res.status(error.code).json({ message: error.message });
+  //   }
+  // response.status(400).send(error.toString())
+  //}
 };
 
 const completeTask = (req, res) => {

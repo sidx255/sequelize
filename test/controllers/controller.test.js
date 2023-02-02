@@ -4,7 +4,7 @@ const controller = require("../../src/controllers/controller");
 
 describe("To-Do app utilities", () =>
   describe("Create a user", () => {
-    it("should create a user", async () => {
+    it("should list all tasks", async () => {
       jest.spyOn(todo, "getTasks").mockResolvedValue({ id: 1 });
       const mockRes = { send: jest.fn() };
       await controller.getTasks({
